@@ -6,6 +6,7 @@
 import base64
 import datetime
 import os
+import typing
 
 import pytest
 
@@ -246,6 +247,73 @@ class TestOpenSSHSerialization:
         # make sure multi-line base64 is used
         maxline = max(map(len, priv_data2.split(b"\n")))
         assert maxline < 80
+
+        # check serialization with comment
+        comment = b"test  comment"
+        parsed_comment: typing.List[bytes] = []
+        setattr(encryption, "_comment", comment)
+        if key_file.startswith("dsa"):
+            with pytest.warns(utils.DeprecatedIn40):
+                priv_data2 = private_key.private_bytes(
+                    Encoding.PEM,
+                    PrivateFormat.OpenSSH,
+                    encryption,
+                )
+            with pytest.warns(utils.DeprecatedIn40):
+                private_key2 = load_ssh_private_key(
+                    priv_data2,
+                    password,
+                    backend,
+                    comment_collector=lambda c: parsed_comment.append(c),
+                )
+        else:
+            priv_data2 = private_key.private_bytes(
+                Encoding.PEM,
+                PrivateFormat.OpenSSH,
+                encryption,
+            )
+            private_key2 = load_ssh_private_key(
+                priv_data2,
+                password,
+                backend,
+                comment_collector=lambda c: parsed_comment.append(c),
+            )
+        assert len(parsed_comment) == 1
+        assert parsed_comment[0] == comment
+        delattr(encryption, "_comment")
+
+        # check serialization with comment of incorrect type
+        parsed_comment = []
+        setattr(encryption, "_comment", 123)
+        if key_file.startswith("dsa"):
+            with pytest.warns(utils.DeprecatedIn40):
+                priv_data2 = private_key.private_bytes(
+                    Encoding.PEM,
+                    PrivateFormat.OpenSSH,
+                    encryption,
+                )
+            with pytest.warns(utils.DeprecatedIn40):
+                private_key2 = load_ssh_private_key(
+                    priv_data2,
+                    password,
+                    backend,
+                    comment_collector=lambda c: parsed_comment.append(c),
+                )
+        else:
+            priv_data2 = private_key.private_bytes(
+                Encoding.PEM,
+                PrivateFormat.OpenSSH,
+                encryption,
+            )
+            private_key2 = load_ssh_private_key(
+                priv_data2,
+                password,
+                backend,
+                comment_collector=lambda c: parsed_comment.append(c),
+            )
+        assert len(parsed_comment) == 1
+        assert parsed_comment[0] == b""
+        delattr(encryption, "_comment")
 
     @pytest.mark.supported(
         only_if=lambda backend: backend.ed25519_supported(),
