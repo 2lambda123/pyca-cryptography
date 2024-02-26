@@ -27,6 +27,9 @@ Changelog
   and :class:`~cryptography.hazmat.primitives.ciphers.algorithms.ARC4` into
   :doc:`/hazmat/decrepit/index` and deprecated them in the ``cipher`` module.
   They will be removed from the ``cipher`` module in 48.0.0.
+* Added :meth:`~cryptography.hazmat.primitives.ciphers.CipherContext.update_nonce`
+  for altering the ``nonce`` of a cipher context without initializing a new
+  instance. See the docs for additional restrictions.
 
 .. _v42-0-5:
 
