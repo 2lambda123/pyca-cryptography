@@ -324,9 +324,14 @@ pub static PKCS7_DETACHED_SIGNATURE: LazyPyImport = LazyPyImport::new(
     &["PKCS7Options", "DetachedSignature"],
 );
 
-pub static SMIME_ENCODE: LazyPyImport = LazyPyImport::new(
+pub static SMIME_ENVELOPED_ENCODE: LazyPyImport = LazyPyImport::new(
     "cryptography.hazmat.primitives.serialization.pkcs7",
-    &["_smime_encode"],
+    &["_smime_enveloped_encode"],
+);
+
+pub static SMIME_SIGNED_ENCODE: LazyPyImport = LazyPyImport::new(
+    "cryptography.hazmat.primitives.serialization.pkcs7",
+    &["_smime_signed_encode"],
 );
 
 pub static PKCS12KEYANDCERTIFICATES: LazyPyImport = LazyPyImport::new(
@@ -352,6 +357,8 @@ pub static PREHASHED: LazyPyImport = LazyPyImport::new(
     "cryptography.hazmat.primitives.asymmetric.utils",
     &["Prehashed"],
 );
+pub static SYMMETRIC_PADDING_PKCS7: LazyPyImport =
+    LazyPyImport::new("cryptography.hazmat.primitives.padding", &["PKCS7"]);
 pub static ASYMMETRIC_PADDING: LazyPyImport = LazyPyImport::new(
     "cryptography.hazmat.primitives.asymmetric.padding",
     &["AsymmetricPadding"],
@@ -455,6 +462,9 @@ pub static FFI_CAST: LazyPyImport = LazyPyImport::new(
     "cryptography.hazmat.bindings._rust",
     &["_openssl", "ffi", "cast"],
 );
+
+pub static CIPHER: LazyPyImport =
+    LazyPyImport::new("cryptography.hazmat.primitives.ciphers", &["Cipher"]);
 
 pub static BLOCK_CIPHER_ALGORITHM: LazyPyImport = LazyPyImport::new(
     "cryptography.hazmat.primitives.ciphers",

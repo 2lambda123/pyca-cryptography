@@ -6,6 +6,7 @@ use crate::{certificate, common, csr, name};
 
 pub const PKCS7_DATA_OID: asn1::ObjectIdentifier = asn1::oid!(1, 2, 840, 113549, 1, 7, 1);
 pub const PKCS7_SIGNED_DATA_OID: asn1::ObjectIdentifier = asn1::oid!(1, 2, 840, 113549, 1, 7, 2);
+pub const PKCS7_ENVELOPED_DATA_OID: asn1::ObjectIdentifier = asn1::oid!(1, 2, 840, 113549, 1, 7, 3);
 
 #[derive(asn1::Asn1Write)]
 pub struct ContentInfo<'a> {
@@ -17,6 +18,8 @@ pub struct ContentInfo<'a> {
 
 #[derive(asn1::Asn1DefinedByWrite)]
 pub enum Content<'a> {
+    #[defined_by(PKCS7_ENVELOPED_DATA_OID)]
+    EnvelopedData(asn1::Explicit<Box<EnvelopedData<'a>>, 0>),
     #[defined_by(PKCS7_SIGNED_DATA_OID)]
     SignedData(asn1::Explicit<Box<SignedData<'a>>, 0>),
     #[defined_by(PKCS7_DATA_OID)]
@@ -51,6 +54,29 @@ pub struct SignerInfo<'a> {
 
     #[implicit(1)]
     pub unauthenticated_attributes: Option<csr::Attributes<'a>>,
+}
+
+#[derive(asn1::Asn1Write)]
+pub struct EncryptedContentInfo<'a> {
+    pub _content_type: asn1::ObjectIdentifier,
+    pub content_encryption_algorithm: common::AlgorithmIdentifier<'a>,
+    #[implicit(0)]
+    pub content: Option<&'a [u8]>,
+}
+
+#[derive(asn1::Asn1Write)]
+pub struct EnvelopedData<'a> {
+    pub version: u8,
+    pub recipient_infos: asn1::SetOfWriter<'a, RecipientInfo<'a>>,
+    pub encrypted_content_info: EncryptedContentInfo<'a>,
+}
+
+#[derive(asn1::Asn1Write)]
+pub struct RecipientInfo<'a> {
+    pub version: u8,
+    pub issuer_and_serial_number: IssuerAndSerialNumber<'a>,
+    pub key_encryption_algorithm: common::AlgorithmIdentifier<'a>,
+    pub encrypted_key: &'a [u8],
 }
 
 #[derive(asn1::Asn1Write)]
