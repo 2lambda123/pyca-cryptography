@@ -85,7 +85,7 @@ version = "0.1.0"
 dependencies = [
  "cfg-if",
  "foreign-types 0.5.0",
- "foreign-types-shared 0.1.1",
+ "foreign-types-shared 0.3.1",
  "openssl",
  "openssl-sys",
 ]
@@ -102,7 +102,7 @@ dependencies = [
  "cryptography-openssl",
  "cryptography-x509",
  "cryptography-x509-verification",
- "foreign-types-shared 0.1.1",
+ "foreign-types-shared 0.3.1",
  "once_cell",
  "openssl",
  "openssl-sys",
