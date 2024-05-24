@@ -38,6 +38,7 @@ from cryptography.hazmat.primitives.serialization import (
     PublicFormat,
     _KeySerializationEncryption,
 )
+from typing import Optional
 
 try:
     from bcrypt import kdf as _bcrypt_kdf
@@ -1174,13 +1175,16 @@ class SSHCertificateBuilder:
         _serial: int | None = None,
         _type: SSHCertificateType | None = None,
         _key_id: bytes | None = None,
-        _valid_principals: list[bytes] = [],
+        _valid_principals: Optional[list[bytes]] = None,
         _valid_for_all_principals: bool = False,
         _valid_before: int | None = None,
         _valid_after: int | None = None,
-        _critical_options: list[tuple[bytes, bytes]] = [],
-        _extensions: list[tuple[bytes, bytes]] = [],
+        _critical_options: Optional[list[tuple[bytes, bytes]]] = None,
+        _extensions: Optional[list[tuple[bytes, bytes]]] = None,
     ):
+        _valid_principals = [] if _valid_principals is None else _valid_principals
+        _critical_options = [] if _critical_options is None else _critical_options
+        _extensions = [] if _extensions is None else _extensions
         self._public_key = _public_key
         self._serial = _serial
         self._type = _type

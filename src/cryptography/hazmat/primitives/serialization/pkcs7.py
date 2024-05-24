@@ -16,6 +16,7 @@ from cryptography.hazmat.bindings._rust import pkcs7 as rust_pkcs7
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import ec, padding, rsa
 from cryptography.utils import _check_byteslike
+from typing import Optional
 
 load_pem_pkcs7_certificates = rust_pkcs7.load_pem_pkcs7_certificates
 
@@ -48,16 +49,18 @@ class PKCS7SignatureBuilder:
     def __init__(
         self,
         data: bytes | None = None,
-        signers: list[
+        signers: Optional[list[
             tuple[
                 x509.Certificate,
                 PKCS7PrivateKeyTypes,
                 PKCS7HashTypes,
                 padding.PSS | padding.PKCS1v15 | None,
             ]
-        ] = [],
-        additional_certs: list[x509.Certificate] = [],
+        ]] = None,
+        additional_certs: Optional[list[x509.Certificate]] = None,
     ):
+        signers = [] if signers is None else signers
+        additional_certs = [] if additional_certs is None else additional_certs
         self._data = data
         self._signers = signers
         self._additional_certs = additional_certs

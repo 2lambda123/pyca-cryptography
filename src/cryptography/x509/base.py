@@ -36,6 +36,7 @@ from cryptography.x509.extensions import (
 )
 from cryptography.x509.name import Name, _ASN1Type
 from cryptography.x509.oid import ObjectIdentifier
+from typing import Optional
 
 _EARLIEST_UTC_TIME = datetime.datetime(1950, 1, 1)
 
@@ -662,12 +663,14 @@ class CertificateSigningRequestBuilder:
     def __init__(
         self,
         subject_name: Name | None = None,
-        extensions: list[Extension[ExtensionType]] = [],
-        attributes: list[tuple[ObjectIdentifier, bytes, int | None]] = [],
+        extensions: Optional[list[Extension[ExtensionType]]] = None,
+        attributes: Optional[list[tuple[ObjectIdentifier, bytes, int | None]]] = None,
     ):
         """
         Creates an empty X.509 certificate request (v1).
         """
+        extensions = [] if extensions is None else extensions
+        attributes = [] if attributes is None else attributes
         self._subject_name = subject_name
         self._extensions = extensions
         self._attributes = attributes
@@ -770,8 +773,9 @@ class CertificateBuilder:
         serial_number: int | None = None,
         not_valid_before: datetime.datetime | None = None,
         not_valid_after: datetime.datetime | None = None,
-        extensions: list[Extension[ExtensionType]] = [],
+        extensions: Optional[list[Extension[ExtensionType]]] = None,
     ) -> None:
+        extensions = [] if extensions is None else extensions
         self._version = Version.v3
         self._issuer_name = issuer_name
         self._subject_name = subject_name
@@ -1013,9 +1017,11 @@ class CertificateRevocationListBuilder:
         issuer_name: Name | None = None,
         last_update: datetime.datetime | None = None,
         next_update: datetime.datetime | None = None,
-        extensions: list[Extension[ExtensionType]] = [],
-        revoked_certificates: list[RevokedCertificate] = [],
+        extensions: Optional[list[Extension[ExtensionType]]] = None,
+        revoked_certificates: Optional[list[RevokedCertificate]] = None,
     ):
+        extensions = [] if extensions is None else extensions
+        revoked_certificates = [] if revoked_certificates is None else revoked_certificates
         self._issuer_name = issuer_name
         self._last_update = last_update
         self._next_update = next_update
@@ -1154,8 +1160,9 @@ class RevokedCertificateBuilder:
         self,
         serial_number: int | None = None,
         revocation_date: datetime.datetime | None = None,
-        extensions: list[Extension[ExtensionType]] = [],
+        extensions: Optional[list[Extension[ExtensionType]]] = None,
     ):
+        extensions = [] if extensions is None else extensions
         self._serial_number = serial_number
         self._revocation_date = revocation_date
         self._extensions = extensions

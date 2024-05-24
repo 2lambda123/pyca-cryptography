@@ -19,6 +19,7 @@ from cryptography.x509.base import (
     _convert_to_naive_utc_time,
     _reject_duplicate_extension,
 )
+from typing import Optional
 
 
 class OCSPResponderEncoding(utils.Enum):
@@ -411,8 +412,9 @@ class OCSPRequestBuilder:
         | None = None,
         request_hash: tuple[bytes, bytes, int, hashes.HashAlgorithm]
         | None = None,
-        extensions: list[x509.Extension[x509.ExtensionType]] = [],
+        extensions: Optional[list[x509.Extension[x509.ExtensionType]]] = None,
     ) -> None:
+        extensions = [] if extensions is None else extensions
         self._request = request
         self._request_hash = request_hash
         self._extensions = extensions
@@ -493,8 +495,9 @@ class OCSPResponseBuilder:
         responder_id: tuple[x509.Certificate, OCSPResponderEncoding]
         | None = None,
         certs: list[x509.Certificate] | None = None,
-        extensions: list[x509.Extension[x509.ExtensionType]] = [],
+        extensions: Optional[list[x509.Extension[x509.ExtensionType]]] = None,
     ):
+        extensions = [] if extensions is None else extensions
         self._response = response
         self._responder_id = responder_id
         self._certs = certs
