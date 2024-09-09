@@ -11,7 +11,7 @@ argcomplete==3.5.0; python_version >= "3.8"
     # via nox
 babel==2.16.0
     # via sphinx
-build==1.2.1
+build==1.2.2
     # via
     #   check-sdist
     #   cryptography (pyproject.toml)
