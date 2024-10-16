@@ -8,4 +8,4 @@ publish = false
 rust-version = "1.65.0"
 
 [dependencies]
-pyo3 = { version = "0.22.4", features = ["abi3"] }
+pyo3 = { version = "0.22.5", features = ["abi3"] }
