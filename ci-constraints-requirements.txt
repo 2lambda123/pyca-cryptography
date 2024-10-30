@@ -23,7 +23,7 @@ check-sdist==1.2.0
     # via cryptography (pyproject.toml)
 click==8.1.7
     # via cryptography (pyproject.toml)
-colorlog==6.8.2
+colorlog==6.9.0
     # via nox
 coverage==7.6.4; python_version >= "3.8"
     # via
