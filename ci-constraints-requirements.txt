@@ -95,7 +95,7 @@ pytest==8.3.3; python_version >= "3.8"
     #   pytest-xdist
 pytest-benchmark==5.0.1
     # via cryptography (pyproject.toml)
-pytest-cov==5.0.0; python_version >= "3.8"
+pytest-cov==6.0.0; python_version >= "3.8"
     # via cryptography (pyproject.toml)
 pytest-randomly==3.16.0
     # via cryptography (pyproject.toml)
