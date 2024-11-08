@@ -60,7 +60,7 @@ nh3==0.2.18
     # via readme-renderer
 nox==2024.10.9
     # via cryptography (pyproject.toml)
-packaging==24.1
+packaging==24.2
     # via
     #   build
     #   nox
