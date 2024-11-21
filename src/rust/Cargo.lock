@@ -4,18 +4,19 @@ version = 3
 
 [[package]]
 name = "asn1"
-version = "0.18.0"
+version = "0.20.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3522623dbb7db59b34439c022ab0445a0257a62ad20d499da3a3507394708559"
+checksum = "2d8b84b4ea1de2bf1dcd2a759737ddb328fb6695b2a95eb7e44fed67e3406f32"
 dependencies = [
  "asn1_derive",
+ "itoa",
 ]
 
 [[package]]
 name = "asn1_derive"
-version = "0.18.0"
+version = "0.20.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "da79157fc864ed738b596d622929466c68ed48371f17a5f05e329880420a160d"
+checksum = "a200809d0138620b3dba989f1d08d0620e76248bc1e62a2ec1b2df5eb1ee08ad"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -185,6 +186,12 @@ name = "indoc"
 version = "2.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b248f5224d1d606005e02c97f5aa4e88eeb230488bcc03bc9ca4d7991399f2b5"
+
+[[package]]
+name = "itoa"
+version = "1.0.13"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "540654e97a3f4470a492cd30ff187bc95d89557a903a2bbf112e2fae98104ef2"
 
 [[package]]
 name = "libc"
