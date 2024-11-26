@@ -150,7 +150,7 @@ typing-extensions==4.12.2; python_version >= "3.8"
     # via mypy
 urllib3==2.2.3
     # via requests
-virtualenv==20.27.1
+virtualenv==20.28.0
     # via nox
 
 # The following packages are considered to be unsafe in a requirements file:
