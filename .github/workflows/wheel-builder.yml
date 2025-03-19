@@ -124,7 +124,7 @@ jobs:
       - name: Install Python dependencies
         run: .venv/bin/pip install --require-hashes -r ${{ env.BUILD_REQUIREMENTS_PATH }}
 
-      - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+      - uses: actions/download-artifact@b14cf4c92620c250e1c074ab0a5800e37df86765 # v4.2.0
         with:
           name: cryptography-sdist
       - run: mkdir tmpwheelhouse
@@ -250,7 +250,7 @@ jobs:
       - name: Install Python dependencies
         run: venv/bin/pip install --require-hashes -r ${{ env.BUILD_REQUIREMENTS_PATH }}
 
-      - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+      - uses: actions/download-artifact@b14cf4c92620c250e1c074ab0a5800e37df86765 # v4.2.0
         with:
           name: cryptography-sdist
       - run: mkdir wheelhouse
@@ -315,7 +315,7 @@ jobs:
             ${{ env.BUILD_REQUIREMENTS_PATH }}
           sparse-checkout-cone-mode: false
 
-      - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+      - uses: actions/download-artifact@b14cf4c92620c250e1c074ab0a5800e37df86765 # v4.2.0
         with:
           name: cryptography-sdist
 
